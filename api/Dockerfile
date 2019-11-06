@@ -6,6 +6,8 @@ WORKDIR /app
 ADD . .
 
 RUN apk update \
-	&& apk add --no-cache git
+	&& apk add --no-cache git \
+	&& go get gopkg.in/urfave/cli.v2@master \
+	&& go get github.com/oxequa/realize
 
-CMD ["go", "run", "main.go"]
+ENV CREDENTIAL=credentials/credential.json
