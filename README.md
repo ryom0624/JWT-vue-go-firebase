@@ -1,7 +1,7 @@
 
 ```sh
 $ git clone
-$ cd path/to/JWT-vue-go-firebase
+$ cd JWT-vue-go-firebase
 $ docker-compose up -d
 ```
 
