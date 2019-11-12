@@ -1,6 +1,6 @@
 <template>
   <div class="api">
-    <h1>{{msg}}</h1>
+    <h1>{{name}} <br> {{msg}}</h1>
     <button @click="apiPublic">PUBLIC</button>
     <button @click="apiPrivate">PRIVATE</button>
     <p>{{response}}</p>

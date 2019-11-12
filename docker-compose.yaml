@@ -5,8 +5,13 @@ services:
     build: ./api
     ports:
       - 8081:8081
+      - 2345:2345
     volumes:
       - ./api:/app
+    security_opt:
+      - apparmor:unconfined
+    cap_add:
+      - SYS_PTRACE
     command: ["realize", "start", "--run"]
 
   frontend:
