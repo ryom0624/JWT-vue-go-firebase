@@ -20,4 +20,4 @@ yarn-error.log*
 *.sln
 *.sw?
 
-api/.realize.yaml
+.realize.yaml
