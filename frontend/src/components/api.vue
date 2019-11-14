@@ -1,9 +1,17 @@
 <template>
   <div class="api">
     <h1>{{name}} <br> {{msg}}</h1>
-    <button @click="apiPublic">PUBLIC</button>
-    <button @click="apiPrivate">PRIVATE</button>
-    <p>{{response}}</p>
+    <div>
+      <p>Access to http://localhost:8081</p>
+      <button @click="apiPublic">PUBLIC</button>
+      <button @click="apiPrivate">PRIVATE</button>
+    </div>
+    <div>
+      <p>Access to http://localhost:8083</p>
+      <button @click="apiPing">PING</button>
+      <button @click="apiSession">Session</button>
+    </div>
+    <h2>{{response}}</h2>
   </div>
 </template>
 
@@ -33,12 +41,29 @@
           headers: {'Authorization': `Bearer ${localStorage.getItem('jwt')}`}
         }).then(res => {
           this.response = res.data
-
         }).catch(err => {
           // eslint-disable-next-line no-console
           console.log("Faild to connect API server REASON:" + err)
         })
       },
+      apiPing: function() {
+        axios.get("http://localhost:8083/ping").then(res => {
+          this.response = res.data
+        }).catch(err => {
+          // eslint-disable-next-line no-console
+          console.log("Faild to connect API server REASON:" + err)
+        })
+      },
+      apiSession: function() {
+        axios.get("http://localhost:8083/session", {
+          headers: {'Authorization': `Bearer ${localStorage.getItem('jwt')}`}
+        }).then(res => {
+          this.response = res.data
+        }).catch(err => {
+          // eslint-disable-next-line no-console
+          console.log("Faild to connect API server REASON:" + err)
+        })
+      }
     }
   }
 </script>

@@ -21,11 +21,11 @@ let app
 // eslint-disable-next-line no-unused-vars
 firebase.auth().onAuthStateChanged(user => {
   if (!app) {
-    // eslint-disable-next-line no-console
-    console.log(firebase.auth().currentUser)
     new Vue({
       router,
       render: h => h(App)
     }).$mount('#app')
+    // eslint-disable-next-line no-console
+    console.log(firebase.auth().currentUser.uid)
   }
 })
