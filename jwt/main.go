@@ -26,7 +26,7 @@ func private(c *gin.Context) {
 }
 
 func authMiddleware() gin.HandlerFunc {
-	return func(c *gin.Context) {
+	return func(c *gin.Context)  {
 		opt := option.WithCredentialsFile(os.Getenv("CREDENTIAL"))
 
 		app, err := firebase.NewApp(c, nil, opt)
@@ -48,6 +48,7 @@ func authMiddleware() gin.HandlerFunc {
 			c.JSON(http.StatusBadRequest, gin.H{"Error": "Verify Token is invalid"})
 			c.Abort()
 		}
+		fmt.Println(token.UID)
 		fmt.Fprintf(os.Stdout, "Verified Token :%v\n", token)
 		c.Next()
 	}

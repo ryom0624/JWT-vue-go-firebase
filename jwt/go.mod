@@ -1,4 +1,4 @@
-module vue-golang-firebase
+module vue-golang-firebase/jwt
 
 go 1.12
 
