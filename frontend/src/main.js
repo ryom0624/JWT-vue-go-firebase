@@ -25,7 +25,5 @@ firebase.auth().onAuthStateChanged(user => {
       router,
       render: h => h(App)
     }).$mount('#app')
-    // eslint-disable-next-line no-console
-    console.log(firebase.auth().currentUser.uid)
   }
 })
