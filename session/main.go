@@ -2,9 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/gin-contrib/sessions"
-	"github.com/gin-contrib/sessions/cookie"
-	"github.com/gorilla/securecookie"
 	"log"
 	"net/http"
 	"os"
@@ -12,8 +9,10 @@ import (
 
 	firebase "firebase.google.com/go"
 	"github.com/gin-contrib/cors"
-	_ "github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
+	"github.com/gorilla/securecookie"
 	"google.golang.org/api/option"
 )
 
@@ -22,10 +21,9 @@ type sendData struct {
 }
 
 type User struct {
-	UserId string
+	UserId   string
 	Password string
 }
-
 
 func main() {
 	router := gin.Default()
@@ -33,9 +31,9 @@ func main() {
 	router.Use(sessions.Sessions("SessionID", store))
 
 	router.Use(cors.New(cors.Config{
-		AllowOrigins: []string{"http://localhost:8080"},
-		AllowMethods: []string{"GET", "POST"},
-		AllowHeaders: []string{"Origin", "Content-Length", "Content-Type", "Authorization"},
+		AllowOrigins:     []string{"http://localhost:8080"},
+		AllowMethods:     []string{"GET", "POST"},
+		AllowHeaders:     []string{"Origin", "Content-Length", "Content-Type", "Authorization"},
 		AllowCredentials: true,
 	}))
 
@@ -49,11 +47,10 @@ func main() {
 		authGroup.GET("/items", getItems)
 	}
 
-
 	router.Run(":8089")
 }
 
-func authMiddleware() gin.HandlerFunc  {
+func authMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		opt := option.WithCredentialsFile(os.Getenv("CREDENTIAL"))
 
@@ -97,7 +94,7 @@ func setUIDSession() gin.HandlerFunc {
 }
 func ping(c *gin.Context) {
 	log.Println(c.Request.Header["Cookie"])
-	c.JSON(200, gin.H{"message": "pong"})
+	c.JSON(200, gin.H{"message": "pooong"})
 }
 
 func session(c *gin.Context) {
@@ -114,7 +111,8 @@ func addCart(c *gin.Context) {
 
 	switch sessionData := session.Get("Products").(type) {
 	case nil:
-		session.Set("Products", postData.Product)
+		tempSlice := []string{postData.Product}
+		session.Set("Products", tempSlice)
 	case string:
 		tempSlice := []string{postData.Product}
 		tempSlice = append(tempSlice, sessionData)
